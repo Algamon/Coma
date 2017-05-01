@@ -3,13 +3,6 @@ package ru.coma.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 
-/**
- * Date: 27.08.15
- * Time: 12:58
- *
- * @author Ruslan Molchanov (ruslanys@gmail.com)
- * @author http://mruslan.com
- */
 @Entity
 @Table
 public class Contact implements Serializable {

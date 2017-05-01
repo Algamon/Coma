@@ -9,13 +9,6 @@ import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.List;
 
-/**
- * Date: 27.08.15
- * Time: 17:23
- *
- * @author Ruslan Molchanov (ruslanys@gmail.com)
- * @author http://mruslan.com
- */
 @Service
 @Transactional
 public class ContactServiceImpl implements ContactService {
