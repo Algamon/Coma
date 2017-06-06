@@ -5,43 +5,89 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.coma.entity.Contact;
+import org.springframework.beans.factory.annotation.Qualifier;
+import ru.coma.Application;
+import ru.coma.ConfigurationControllers;
+import ru.coma.entity.Rashody;
 import ru.coma.service.ContactService;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
 import java.util.List;
 
-/**
- * Date: 27.08.15
- * Time: 11:10
- *
- * @author Ruslan Molchanov (ruslanys@gmail.com)
- * @author http://mruslan.com
- */
+
 @SuppressWarnings("SpringJavaAutowiringInspection")
 public class MainController {
-
     private Logger logger = LoggerFactory.getLogger(MainController.class);
-
+    @Qualifier("mainView")
+    @Autowired
+    private ConfigurationControllers.View view;
     // Инъекции Spring
     @Autowired private ContactService contactService;
+    /*private ObservableList<Consumption> usersData = FXCollections.observableArrayList();
+
+    @FXML
+    private TableView<Consumption> tableConsumption;
+
+    @FXML
+    private TableColumn<Consumption, String> dateColumn;
+
+    @FXML
+    private TableColumn<Consumption, String> rashodColumn;
+
+    @FXML
+    private TableColumn<Consumption, String> statiaColumn;
+
+    @FXML
+    private TableColumn<Consumption, String> osnovanieColumn;
+
+    // инициализируем форму данными
+
+    @SuppressWarnings("unchecked")
+    @PostConstruct
+    private void init() {
+        initData();
+
+        // устанавливаем тип и значение которое должно хранится в колонке
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("Дата"));
+        rashodColumn.setCellValueFactory(new PropertyValueFactory<>("Расходы"));
+        statiaColumn.setCellValueFactory(new PropertyValueFactory<>("Статья"));
+        osnovanieColumn.setCellValueFactory(new PropertyValueFactory<>("Основание"));
+
+        // заполняем таблицу данными
+        tableConsumption.setItems(usersData);
+    }
+
+    // подготавливаем данные для таблицы
+    // вы можете получать их с базы данных
+    private void initData() {
+        usersData.add(new Consumption("12", "Alex", "qwerty", "alex@mail.com"));
+        usersData.add(new Consumption("", "Bob", "dsfsdfw", "bob@mail.com"));
+        usersData.add(new Consumption("", "Jeck", "dsfdsfwe", "Jeck@mail.com"));
+        usersData.add(new Consumption("", "Mike", "iueern", "mike@mail.com"));
+        usersData.add(new Consumption("", "colin", "woeirn", "colin@mail.com"));
+    }*/
+
+
+
 
     // Инъекции JavaFX
-    @FXML private TableView<Contact> table;
-    @FXML private TextField txtName;
-    @FXML private TextField txtPhone;
-    @FXML private TextField txtEmail;
+    @FXML private TableView<Rashody> tableConsumption;
+    @FXML private TableColumn<Rashody,Integer> idColumn;
+    @FXML private TableColumn<Rashody,String> dateColumn;
+    @FXML private TableColumn<Rashody,String> rashodColumn;
+    @FXML private TableColumn<Rashody,String> statiaColumn;
+    @FXML private TableColumn<Rashody,String> osnovanieColumn;
 
     // Variables
-    private ObservableList<Contact> data;
 
-    /**
-     * Инициализация контроллера от JavaFX.
+    private ObservableList<Rashody> data;
+    /*
+    ** Инициализация контроллера от JavaFX.
      * Метод вызывается после того как FXML загрузчик произвел инъекции полей.
      *
      * Обратите внимание, что имя метода <b>обязательно</b> должно быть "initialize",
@@ -63,35 +109,36 @@ public class MainController {
     @SuppressWarnings("unchecked")
     @PostConstruct
     public void init() {
-        List<Contact> contacts = contactService.findAll();
+        List<Rashody> contacts = contactService.findAll();
         data = FXCollections.observableArrayList(contacts);
 
         // Столбцы таблицы
-        TableColumn<Contact, String> idColumn = new TableColumn<>("ID");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        //TableColumn<Rashody, String> dateColumn = new TableColumn<>("Дата");
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
 
-        TableColumn<Contact, String> nameColumn = new TableColumn<>("Имя");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        //TableColumn<Rashody, String> rashodyColumn = new TableColumn<>("Расходы");
+        rashodColumn.setCellValueFactory(new PropertyValueFactory<>("Rashodi"));
 
-        TableColumn<Contact, String> phoneColumn = new TableColumn<>("Телефон");
-        phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        //TableColumn<Rashody, String> statiaColumn = new TableColumn<>("Статья");
+        statiaColumn.setCellValueFactory(new PropertyValueFactory<>("Statia"));
 
-        TableColumn<Contact, String> emailColumn = new TableColumn<>("E-mail");
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        //TableColumn<Rashody, String> osnovanieColumn = new TableColumn<>("Основание");
+        osnovanieColumn.setCellValueFactory(new PropertyValueFactory<>("Osnovanie"));
 
-        table.getColumns().setAll(idColumn, nameColumn, phoneColumn, emailColumn);
+        tableConsumption.getColumns().setAll(idColumn,dateColumn, rashodColumn, statiaColumn, osnovanieColumn);
 
         // Данные таблицы
-        table.setItems(data);
+        tableConsumption.setItems(data);
     }
 
     /**
      * Метод, вызываемый при нажатии на кнопку "Добавить".
      * Привязан к кнопке в FXML файле представления.
      */
-    @FXML
+    /*@FXML
     public void addContact() {
-        Contact contact = new Contact(txtName.getText(), txtPhone.getText(), txtEmail.getText());
+        Rashody contact = new Rashody(txtName.getText(), txtPhone.getText(), txtEmail.getText());
         contactService.save(contact);
         data.add(contact);
 
@@ -99,5 +146,49 @@ public class MainController {
         txtName.setText("");
         txtPhone.setText("");
         txtEmail.setText("");
+    }*/
+    @FXML
+    public void showFirstDohod()throws IOException {
+        Application.showDohod();
+    }
+    @FXML
+    public void showFirstRashod()throws IOException {
+        Application.showRashod();
+    }
+    @FXML
+    public void showFirstThird()throws IOException {
+        Application.showThird();
+    }
+    @FXML
+    public void showFirstTochki()throws IOException {
+        Application.showTochki();
+    }
+    @FXML
+    public void showFirstSotrudniki()throws IOException {
+        Application.showSotrudniki();
+    }
+    @FXML
+    public void showFirstPlanirovanie()throws IOException {
+        Application.showPlanirovanie();
+    }
+    @FXML
+    public void showFirstPoTochkam()throws IOException {
+        Application.showOtchety_po_tochkam();
+    }
+    @FXML
+    public void showFirstSklad()throws IOException {
+        Application.showSklad();
+    }
+    @FXML
+    public void showFirstOtchety()throws IOException {
+        Application.showOtchety();
+    }
+    @FXML
+    public void showFirstOtchet()throws IOException {
+        Application.showSotr_otchet();
+    }
+    @FXML
+    public void showFirstAnaliz()throws IOException {
+        Application.showAnaliz();
     }
 }

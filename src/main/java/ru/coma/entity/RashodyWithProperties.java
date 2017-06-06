@@ -11,15 +11,15 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * Класс, аналогичный классу {@link Contact} за тем исключением,
+ * Класс, аналогичный классу {@link Rashody} за тем исключением,
  * что поля из себя представляют JavaFX Property. Это может пригодиться.
  *
- * JPA с ним работает аналогично классу {@link Contact}.
+ * JPA с ним работает аналогично классу {@link Rashody}.
  */
 //@Entity
 //@Table
 //@Access(AccessType.PROPERTY)
-public class ContactWithProperties implements Serializable {
+public class RashodyWithProperties implements Serializable {
 
     private LongProperty id = new SimpleLongProperty();
 
@@ -32,10 +32,10 @@ public class ContactWithProperties implements Serializable {
     @Column(unique = true)
     private StringProperty email = new SimpleStringProperty();
 
-    public ContactWithProperties() {
+    public RashodyWithProperties() {
     }
 
-    public ContactWithProperties(Long id, String name, String phone, String email) {
+    public RashodyWithProperties(Long id, String name, String phone, String email) {
         setId(id);
         setName(name);
         setPhone(phone);

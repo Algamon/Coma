@@ -2,7 +2,7 @@ package ru.coma.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.coma.entity.Contact;
+import ru.coma.entity.Rashody;
 import ru.coma.repository.ContactRepository;
 
 import javax.annotation.PostConstruct;
@@ -24,17 +24,17 @@ public class ContactServiceImpl implements ContactService {
      */
     @PostConstruct
     public void generateTestData() {
-        save(new Contact("Иван Иванов", "+123456789", "ivan@ivan.ov"));
-        save(new Contact("Петр Петров", "+987654321", "petr@pe.tr"));
+       // save(new Rashody("Иван Иванов", "+123456789", "ivan@ivan.ov"));
+        //save(new Rashody("Петр Петров", "+987654321", "petr@pe.tr"));
     }
 
     @Override
-    public Contact save(Contact contact) {
+    public Rashody save(Rashody contact) {
         return repository.save(contact);
     }
 
     @Override
-    public List<Contact> findAll() {
+    public List<Rashody> findAll() {
         return repository.findAll();
     }
 }

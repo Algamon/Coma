@@ -12,9 +12,13 @@ import java.io.InputStream;
 @Configuration
 public class ConfigurationControllers {
 
+    public static String urlShow="fxml/main.fxml";
+    public String getShower(){return urlShow;}
+
     @Bean(name = "mainView")
     public View getMainView() throws IOException {
-        return loadView("fxml/main.fxml");
+        System.out.println(urlShow);
+        return loadView(getShower());
     }
 
     /**
@@ -45,22 +49,26 @@ public class ConfigurationControllers {
         }
     }
 
+
     /**
      * Класс - оболочка: контроллер мы обязаны указать в качестве бина,
      * а view - представление, нам предстоит использовать в точке входа {@link Application}.
      */
-    public class View {
-        private Parent view;
-        private Object controller;
+    public static class View {
+        private static Parent view;
+        private static Object controller;
+
 
         public View(Parent view, Object controller) {
             this.view = view;
             this.controller = controller;
         }
 
-        public Parent getView() {
+        public static Parent getView(String shower) {
+            ConfigurationControllers.urlShow = shower;
             return view;
         }
+
 
         public void setView(Parent view) {
             this.view = view;

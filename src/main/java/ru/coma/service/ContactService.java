@@ -1,13 +1,13 @@
 package ru.coma.service;
 
-import ru.coma.entity.Contact;
+import ru.coma.entity.Rashody;
 
 import java.util.List;
 
 public interface ContactService {
 
-    Contact save(Contact contact);
+    Rashody save(Rashody contact);
 
-    List<Contact> findAll();
+    List<Rashody> findAll();
 
 }
